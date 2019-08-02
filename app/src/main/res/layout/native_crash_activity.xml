@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:tools="http://schemas.android.com/tools">
+
+    <Button
+            android:id="@+id/nativeCrashButton"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Native crash"
+            android:textAllCaps="false"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+            android:id="@+id/clearDumpsDirButton"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Clear dumps dir"
+            android:textAllCaps="false"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nativeCrashButton"/>
+
+    <TextView android:id="@+id/nativeCrashCounterTitle" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="30sp"
+              android:text="Total native crashes count"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintRight_toRightOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/clearDumpsDirButton"/>
+
+    <TextView android:id="@+id/nativeCrashCounter" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="100sp"
+              tools:text="0"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintRight_toRightOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/nativeCrashCounterTitle"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

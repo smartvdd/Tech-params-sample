@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/vmCrashButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="VM crash"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+                android:id="@+id/nativeCrashButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Native crash"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vmCrashButton"/>
+
+        <Button
+                android:id="@+id/threadsButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Threads"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nativeCrashButton"/>
+
+        <Button
+                android:id="@+id/ramButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="RAM"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/threadsButton"/>
+
+        <Button
+                android:id="@+id/storageButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Storage"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ramButton"/>
+
+        <Button
+                android:id="@+id/batteryButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Battery"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/storageButton"/>
+
+        <Button
+                android:id="@+id/frameRateButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="FPS"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/batteryButton"/>
+
+        <Button
+                android:id="@+id/bundleButton"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Bundle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameRateButton"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
