@@ -17,7 +17,8 @@ class BatteryActivity : AppCompatActivity(), LayoutContainer {
     override val containerView: View
         get() = window.decorView.rootView
 
-    private val batteryChangeReceiver: BatteryChangeReceiver = BatteryChangeReceiver(::onBatteryChanged)
+    private val batteryChangeReceiver: BatteryChangeReceiver =
+        BatteryChangeReceiver(::onBatteryChanged)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +27,7 @@ class BatteryActivity : AppCompatActivity(), LayoutContainer {
         /**
          * Use this if need to get battery status immediately
          */
-        registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.let {
-            onBatteryChanged(it)
-        }
-
+        registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.let(::onBatteryChanged)
         registerReceiver(batteryChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 
@@ -42,9 +40,12 @@ class BatteryActivity : AppCompatActivity(), LayoutContainer {
         super.onDestroy()
     }
 
-    private class BatteryChangeReceiver(private val onBatteryChanged: (Intent) -> Unit) : BroadcastReceiver() {
+    private class BatteryChangeReceiver(private val onBatteryChanged: (Intent) -> Unit) :
+        BroadcastReceiver() {
+
         override fun onReceive(context: Context, intent: Intent) {
             onBatteryChanged.invoke(intent)
         }
+
     }
 }

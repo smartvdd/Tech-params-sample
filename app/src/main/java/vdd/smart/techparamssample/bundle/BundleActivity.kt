@@ -29,7 +29,8 @@ class BundleActivity : AppCompatActivity(), LayoutContainer {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val activityBundleInfo = "Activity bundle size: ${savedInstanceState.getSizeInBytes()} bytes.\n"
+        val activityBundleInfo =
+            "Activity bundle size: ${savedInstanceState.getSizeInBytes()} bytes.\n"
         val fragmentsBundleInfo =
             savedInstanceState.getFragmentsStateList()
                 ?.joinToString(separator = ",\n") { "${it.name} ${it.bundle.getSizeInBytes()} bytes" }

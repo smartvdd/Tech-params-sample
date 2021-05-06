@@ -12,12 +12,11 @@ import vdd.smart.techparamssample.utils.InformationUnit
 class OreoAppStorageProvider(private val context: Context) : IAppStorageProvider {
 
     override fun getAppStorage(appStorageListener: AppStorageListener) {
-        val storageStatsManager = context.getSystemService(Context.STORAGE_STATS_SERVICE) as StorageStatsManager?
-
-        if (storageStatsManager == null) {
-            appStorageListener.onAppStorageReady(AppStorageSnapshot(0, 0, 0))
-            return
-        }
+        val storageStatsManager =
+            context.getSystemService(Context.STORAGE_STATS_SERVICE) as? StorageStatsManager ?: run {
+                appStorageListener.onAppStorageReady(AppStorageSnapshot(0, 0, 0))
+                return
+            }
 
         val storageStats = storageStatsManager.queryStatsForPackage(
             StorageManager.UUID_DEFAULT,

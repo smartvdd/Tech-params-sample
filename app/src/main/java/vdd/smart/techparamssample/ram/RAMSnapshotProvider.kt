@@ -17,8 +17,10 @@ fun Context.getRAMSnapshot(): RAMSnapshot {
     val processInfo = activityManager.getProcessMemoryInfo(arrayOf(Process.myPid()).toIntArray())
     val usedProcessMemory = InformationUnit.KB.toMB(processInfo.map { it.totalPss }.sum().toLong())
 
-    return RAMSnapshot(freeSystemMemory.toInt(),
+    return RAMSnapshot(
+        freeSystemMemory.toInt(),
         usedSystemMemory.toInt(),
         totalSystemMemory.toInt(),
-        usedProcessMemory.toInt())
+        usedProcessMemory.toInt()
+    )
 }

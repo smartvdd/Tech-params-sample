@@ -7,6 +7,7 @@ import cn.onlinecache.breakpad.BreakpadManager
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.native_crash_activity.*
 import vdd.smart.techparamssample.R
+import java.io.File
 
 class NativeCrashActivity : AppCompatActivity(), LayoutContainer {
 
@@ -20,9 +21,7 @@ class NativeCrashActivity : AppCompatActivity(), LayoutContainer {
             BreakpadManager.testNativeCrash()
         }
         clearDumpsDirButton.setOnClickListener {
-            getNativeCrashesCacheDir().listFiles()?.forEach {
-                it.delete()
-            }
+            getNativeCrashesCacheDir().listFiles()?.forEach(File::delete)
             updateNativeCrashesCount()
         }
         updateNativeCrashesCount()

@@ -20,12 +20,12 @@ class FrameRateActivity : AppCompatActivity(), LayoutContainer {
         get() = window.decorView.rootView
 
     private val frameRateCalculator: FrameRateCalculator by lazy { FrameRateCalculator(DateUtils.SECOND_IN_MILLIS / windowManager.defaultDisplay.refreshRate) }
-    private val frameRateCallback = object : FrameRateCalculator.FrameRateCallback {
+    private val frameRateListener = object : FrameRateCalculator.FrameRateListener {
         override fun onFrame(droppedCount: Int) {
             frameRateCounter.text = droppedCount.toString()
         }
     }
-    private val animationViews: Queue<LottieAnimationView> = ArrayDeque()
+    private val animationViewsQueue: Queue<LottieAnimationView> = ArrayDeque()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,38 +39,34 @@ class FrameRateActivity : AppCompatActivity(), LayoutContainer {
     }
 
     private fun addAnimationView() {
-        val container = findViewById<ViewGroup>(android.R.id.content)
         val animationView = LottieAnimationView(this).apply {
             setAnimation(R.raw.smile)
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = LottieDrawable.RESTART
         }
-        container.addView(animationView)
-        animationViews.add(animationView)
-        animationView.repeatCount = ValueAnimator.INFINITE;
-        animationView.repeatMode = LottieDrawable.RESTART;
+        val rootView = findViewById<ViewGroup>(android.R.id.content)
+        rootView.addView(animationView)
+        animationViewsQueue.add(animationView)
         animationView.playAnimation()
     }
 
     private fun removeAnimationView() {
-        animationViews.poll()?.let {
-            val container = findViewById<ViewGroup>(android.R.id.content)
-            it.pauseAnimation()
-            container.removeView(it)
+        val animationView = animationViewsQueue.poll() ?: return
+        animationView.run {
+            this.pauseAnimation()
+            this.clearAnimation()
         }
+        val rootView = findViewById<ViewGroup>(android.R.id.content)
+        rootView.removeView(animationView)
     }
 
     override fun onResume() {
         super.onResume()
-        frameRateCalculator.apply {
-            callback = frameRateCallback
-            start(Choreographer.getInstance())
-        }
+        frameRateCalculator.start(Choreographer.getInstance(), frameRateListener)
     }
 
     override fun onPause() {
+        frameRateCalculator.stop(Choreographer.getInstance())
         super.onPause()
-        frameRateCalculator.apply {
-            callback = null
-            stop(Choreographer.getInstance())
-        }
     }
 }

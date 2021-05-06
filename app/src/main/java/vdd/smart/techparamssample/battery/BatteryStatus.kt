@@ -18,11 +18,12 @@ data class BatteryStatus(
             val percentage = if (level == Int.MIN_VALUE || scale == Int.MIN_VALUE) {
                 -1f
             } else {
-                ((level * 100) / scale.toFloat())
+                level * 100 / scale.toFloat()
             }
 
             val voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, Int.MIN_VALUE) / 1000f
-            val temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE) / 10f
+            val temperature =
+                intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE) / 10f
             val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, Int.MIN_VALUE)
             val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING
             return BatteryStatus(percentage, voltage, temperature, isCharging)

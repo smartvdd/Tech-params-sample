@@ -18,7 +18,8 @@ class ThreadsActivity : AppCompatActivity(), LayoutContainer {
         threadsInfoButton.setOnClickListener {
             val threads = Thread.getAllStackTraces()
             threadsCountTextView.text = String.format("Threads count: %s", threads.size)
-            val info = threads.map { "${it.key.name} ${it.key.state}" }.joinToString(separator = ",\n")
+            val info =
+                threads.map { "${it.key.name} ${it.key.state}" }.joinToString(separator = ",\n")
             threadsInfoTextView.text = info
         }
     }

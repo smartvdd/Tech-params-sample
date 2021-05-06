@@ -14,7 +14,11 @@ class BaseAppStorageProvider(private val context: Context) : IAppStorageProvider
             String::class.java,
             IPackageStatsObserver::class.java
         )
-        getPackageSizeInfo.invoke(packageManager, context.packageName, PackageStatsObserver(appStorageListener))
+        getPackageSizeInfo.invoke(
+            packageManager,
+            context.packageName,
+            PackageStatsObserver(appStorageListener)
+        )
     }
 
     private class PackageStatsObserver(private val appStorageListener: AppStorageListener) :

@@ -25,7 +25,12 @@ class StorageProvider(private val context: Context) {
                 val freeStorageSize = InformationUnit.BYTE.toMB(stat.freeBytes)
                 val availableStorageSize = InformationUnit.BYTE.toMB(stat.availableBytes)
                 val storageSnapshot =
-                    StorageSnapshot(totalStorageSize, freeStorageSize, availableStorageSize, appStorageSnapshot)
+                    StorageSnapshot(
+                        totalStorageSize,
+                        freeStorageSize,
+                        availableStorageSize,
+                        appStorageSnapshot
+                    )
                 storageSnapshotListener.onStorageReady(storageSnapshot)
             }
         })

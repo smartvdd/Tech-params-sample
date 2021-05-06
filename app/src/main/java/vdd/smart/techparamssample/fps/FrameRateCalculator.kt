@@ -4,22 +4,25 @@ import android.view.Choreographer
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToLong
 
-class FrameRateCalculator constructor(private val deviceRefreshRateMillis: Float) : Choreographer.FrameCallback {
+class FrameRateCalculator constructor(private val deviceRefreshRateMillis: Float) :
+    Choreographer.FrameCallback {
 
     private companion object {
         const val UNSET_TIME = -1L
     }
 
-    var callback: FrameRateCallback? = null
-
     private var lastFrameTimeNanos: Long = UNSET_TIME
 
-    fun start(choreographer: Choreographer) {
+    private var frameListener: FrameRateListener? = null
+
+    fun start(choreographer: Choreographer, listener: FrameRateListener? = null) {
+        frameListener = listener
         choreographer.postFrameCallback(this)
     }
 
     fun stop(choreographer: Choreographer) {
         choreographer.removeFrameCallback(this)
+        frameListener = null
     }
 
     override fun doFrame(frameTimeNanos: Long) {
@@ -29,7 +32,13 @@ class FrameRateCalculator constructor(private val deviceRefreshRateMillis: Float
             return
         }
 
-        callback?.onFrame(droppedCount(lastFrameTimeNanos, frameTimeNanos, deviceRefreshRateMillis))
+        frameListener?.onFrame(
+            droppedCount(
+                lastFrameTimeNanos,
+                frameTimeNanos,
+                deviceRefreshRateMillis
+            )
+        )
 
         lastFrameTimeNanos = frameTimeNanos
         Choreographer.getInstance().postFrameCallback(this)
@@ -49,7 +58,7 @@ class FrameRateCalculator constructor(private val deviceRefreshRateMillis: Float
         return count
     }
 
-    interface FrameRateCallback {
+    interface FrameRateListener {
         fun onFrame(droppedCount: Int)
     }
 }
